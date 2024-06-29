@@ -6,6 +6,9 @@ dnl Initialize autoconf/automake
 AC_INIT([aide],[AIDE_VERSION])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE([1.10 -Wall -Werror silent-rules subdir-objects serial-tests])
+AC_CHECK_PROG(AR, ar, ar)
+AM_PROG_AR
+LT_INIT
 
 AC_DEFINE_UNQUOTED(AIDEVERSION, "AIDE_VERSION")
 AH_TEMPLATE([AIDEVERSION], [package version])
@@ -445,4 +448,5 @@ CFLAGS="$CFLAGS $EXTRA_CFLAGS"
 
 AC_SUBST(AIDE_DEFS)
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([include/aide.h])
 AC_OUTPUT

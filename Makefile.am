@@ -15,14 +15,14 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
-
 BUILT_SOURCES = src/conf_yacc.h
 AM_YFLAGS= -d
 
 LEX_OUTPUT_ROOT = lex.yy
 
-bin_PROGRAMS = aide
-aide_SOURCES = src/aide.c include/aide.h \
+lib_LTLIBRARIES = libaide.la 
+
+libaide_la_SOURCES =  src/aide.c include/aide.h \
 	include/base64.h src/base64.c \
 	include/be.h src/be.c \
 	include/commandconf.h src/commandconf.c \
@@ -58,15 +58,17 @@ aide_SOURCES = src/aide.c include/aide.h \
 	include/symboltable.h src/symboltable.c \
 	include/tree.h src/tree.c \
 	include/url.h src/url.c\
-	include/util.h src/util.c
+	include/util.h src/util.c \
+	include/aide_cgo.h src/aide_cgo.c
+
 if HAVE_E2FSATTRS
-aide_SOURCES += include/e2fsattrs.h src/e2fsattrs.c
+libaide_la_SOURCES += include/e2fsattrs.h src/e2fsattrs.c
 endif
 if HAVE_CURL
-aide_SOURCES += include/fopen.h src/fopen.c
+libaide_la_SOURCES += include/fopen.h src/fopen.c
 endif
 
-aide_CFLAGS = @AIDE_DEFS@ -I$(top_srcdir)/include -W -Wall -g \
+libaide_la_CFLAGS = @AIDE_DEFS@ -I$(top_srcdir)/include -W -Wall -g \
 			${AUDIT_CFLAGS} \
 			${CAPABILITIES_CFLAGS} \
 			${CURL_CFLAGS} \
@@ -80,7 +82,7 @@ aide_CFLAGS = @AIDE_DEFS@ -I$(top_srcdir)/include -W -Wall -g \
 			${SELINUX_CFLAGS} \
 			${XATTR_CFLAGS} \
 			${ZLIB_CFLAGS}
-aide_LDADD = -lm \
+libaide_la_LIBADD = -lm \
 			${AUDIT_LIBS} \
 			${CAPABILITIES_LIBS} \
 			${CURL_LIBS} \
@@ -94,7 +96,6 @@ aide_LDADD = -lm \
 			${SELINUX_LIBS} \
 			${XATTR_LIBS} \
 			${ZLIB_LIBS}
-
 if HAVE_CHECK
 TESTS				= check_aide
 check_PROGRAMS		= check_aide

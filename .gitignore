@@ -2,6 +2,11 @@
 /Makefile
 /Makefile.in
 /aclocal.m4
+/ar-lib
+/configure~
+/libaide.la
+/libtool
+/ltmain.sh
 /aide
 /autom4te.cache/
 /compile
@@ -16,11 +21,12 @@
 /missing
 /version.m4
 /ylwrap
-
+/.libs/
 /include/config.h
 /include/config.h.in
 /include/stamp-h1
-
+/src/*.lo
+/src/.libs/
 /src/*.o
 /src/.deps/
 /src/.dirstamp
