@@ -584,6 +584,23 @@ static void setdefaults_after_config()
   };
 }
 
+int aide_check_config(char* config_path, bool* version) {
+    int errorno = 0;
+
+    setdefaults_before_config();
+    errorno = parse_config(NULL, config_path, NULL);
+    if (errorno == RETFAIL) {
+        exit(INVALID_CONFIGURELINE_ERROR);
+    }
+
+    if (*version == true) {
+        print_version();
+    } else {
+        return 0;
+    }
+    return 0;
+}
+
 int main(int argc,char**argv)
 {
   int errorno=0;
